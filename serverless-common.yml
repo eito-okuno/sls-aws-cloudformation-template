@@ -1,0 +1,68 @@
+appname: sls-aws-cloudformation-template
+region: ap-northeast-1
+runtime: python3.8
+timeout:
+  dev: 30
+  stg: 30
+  prd: 30
+memorySize:
+  dev: 2048
+  stg: 2048
+  prd: 2048
+logRetentionInDays:
+  dev: 30
+  stg: 365
+  prd: 365
+profile:
+  dev: default
+  stg: default
+  prd: default
+# apiKeyValue:
+#   dev:
+#   stg:
+#   prd:
+# # VPC
+# vpcId:
+#   dev:
+#   stg:
+#   prd:
+# # Private Subnet
+# privateSubnetAId:
+#   dev:
+#   stg:
+#   prd:
+# privateSubnetCId:
+#   dev:
+#   stg:
+#   prd:
+# privateSubnetDId:
+#   dev:
+#   stg:
+#   prd:
+# # Public Subnet
+# publicSubnetAId:
+#   dev:
+#   stg:
+#   prd:
+# publicSubnetCId:
+#   dev:
+#   stg:
+#   prd:
+# publicSubnetDId:
+#   dev:
+#   stg:
+#   prd:
+# # Private Route Table
+# privateRouteTableId:
+#   dev:
+#   stg:
+#   prd:
+# # Public Route Table
+# publicRouteTableId:
+#   dev:
+#   stg:
+#   prd:
+# lambdaSecurityGroupId:
+#   dev:
+#   stg:
+#   prd:

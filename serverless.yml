@@ -1,0 +1,32 @@
+service: ${file(./serverless-common.yml):appname}
+
+frameworkVersion: '3'
+
+# プラグイン設定
+plugins:
+  - serverless-prune-plugin
+
+# 基本設定
+provider:
+  name: aws
+  region: ${file(./serverless-common.yml):region}
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${file(./serverless-common.yml):profile.${opt:stage, self:custom.defaultStage}}
+  stackName: ${self:service}-${opt:stage, self:custom.defaultStage}
+  deploymentBucket: ${self:provider.stackName}-deployment-bucket
+  stackTags:
+    ENV: ${self:provider.stage}
+
+# カスタム設定
+custom:
+  # prune pluginの設定
+  prune:
+    automatic: true
+    number: 5
+  # 定数の定義
+  appname: ${file(./serverless-common.yml):appname}
+  defaultStage: dev
+
+# AWSリソース設定
+resources:
+    - ${file(./services/vpc/vpc.yml)}

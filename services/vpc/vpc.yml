@@ -1,0 +1,17 @@
+Resources:
+  # ---------------------
+  # VPC
+  # ---------------------
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-vpc
+Outputs:
+  VPCId:
+    Description: "VPCId of VPC"
+    Value: !Ref VPC
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-VPC"
