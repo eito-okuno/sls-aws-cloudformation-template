@@ -1,0 +1,54 @@
+Resources:
+  # ---------------------
+  # PrivateSubnet
+  # ---------------------
+  PrivateSubnet0:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !FindInMap [SubnetConfig, PrivateSubnet0, CIDR]
+      AvailabilityZone: !Select
+          - 0
+          - Fn::GetAZs: !Ref "AWS::Region"
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-private-subnet0
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !FindInMap [SubnetConfig, PrivateSubnet1, CIDR]
+      AvailabilityZone: !Select
+          - 1
+          - Fn::GetAZs: !Ref "AWS::Region"
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-private-subnet1
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !FindInMap [SubnetConfig, PrivateSubnet2, CIDR]
+      AvailabilityZone: !Select
+          - 2
+          - Fn::GetAZs: !Ref "AWS::Region"
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-private-subnet2
+
+Outputs:
+  PrivateSubnet0:
+    Description: "subnet id of private subnet0"
+    Value: !Ref PrivateSubnet0
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateSubnet0"
+  PrivateSubnet1:
+    Description: "subnet id of private subnet1"
+    Value: !Ref PrivateSubnet1
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateSubnet1"
+  PrivateSubnet2:
+    Description: "subnet id of private subnet2"
+    Value: !Ref PrivateSubnet2
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateSubnet2"
