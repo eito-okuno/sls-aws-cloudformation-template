@@ -32,3 +32,4 @@ resources:
     - ${file(./services/common/mapping_${self:provider.stage}.yml)}
     - ${file(./services/vpc/vpc.yml)}
     - ${file(./services/vpc/private_subnet.yml)}
+#     - ${file(./services/vpc/public_subnet.yml)}

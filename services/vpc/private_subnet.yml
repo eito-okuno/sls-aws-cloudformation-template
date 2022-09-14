@@ -13,6 +13,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub ${AWS::StackName}-private-subnet0
+
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -24,6 +25,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub ${AWS::StackName}-private-subnet1
+
   PrivateSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
@@ -42,11 +44,13 @@ Outputs:
     Value: !Ref PrivateSubnet0
     Export:
       Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateSubnet0"
+
   PrivateSubnet1:
     Description: "subnet id of private subnet1"
     Value: !Ref PrivateSubnet1
     Export:
       Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateSubnet1"
+
   PrivateSubnet2:
     Description: "subnet id of private subnet2"
     Value: !Ref PrivateSubnet2
