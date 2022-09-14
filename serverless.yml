@@ -29,4 +29,6 @@ custom:
 
 # AWSリソース設定
 resources:
+    - ${file(./services/common/mapping_${self:provider.stage}.yml)}
     - ${file(./services/vpc/vpc.yml)}
+    - ${file(./services/vpc/private_subnet.yml)}
