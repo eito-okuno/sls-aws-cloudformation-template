@@ -5,6 +5,10 @@ Resources:
   VPC:
     Type: AWS::EC2::VPC
     Properties:
+      # DNS解決を有効化
+#       EnableDnsSupport: "false"
+      # DNSホスト名を有効化
+#       EnableDnsHostnames: "false"
       CidrBlock: !FindInMap [SubnetConfig, VPC, CIDR]
       Tags:
         - Key: Name

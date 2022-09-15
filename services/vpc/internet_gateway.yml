@@ -1,0 +1,19 @@
+Resources:
+  # ---------------------
+  # InternetGateway
+  # ---------------------
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-internet-gateway
+
+  # ---------------------
+  # VPCGatewayAttachment
+  # ---------------------
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
