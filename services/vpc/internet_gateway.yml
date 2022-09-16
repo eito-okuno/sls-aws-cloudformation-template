@@ -17,3 +17,17 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
+
+  # ---------------------
+  # PublicRoute
+  # ---------------------
+  PublicRoute:
+    Type: AWS::EC2::Route
+    # 注意: InternetGatewayをVPCにアタッチした後でないと構築できないため、DependsOnは必須
+    DependsOn:
+      - InternetGateway
+      - VPCGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
