@@ -30,3 +30,10 @@ Resources:
     Properties:
       SubnetId: !Ref PrivateSubnet2
       RouteTableId: !Ref PrivateRouteTable
+
+Outputs:
+  PrivateRouteTable:
+    Description: "route table of private subnet"
+    Value: !Ref PrivateRouteTable
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateRouteTable"

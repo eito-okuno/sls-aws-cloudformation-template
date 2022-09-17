@@ -46,3 +46,22 @@ Resources:
     Properties:
       SubnetId: !Ref PrivateSubnet2
       RouteTableId: !Ref PrivateRouteTable2
+
+Outputs:
+  PrivateRouteTable0:
+    Description: "route table of private subnet0"
+    Value: !Ref PrivateRouteTable0
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateRouteTable0"
+
+  PrivateRouteTable1:
+    Description: "route table of private subnet1"
+    Value: !Ref PrivateRouteTable1
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateRouteTable1"
+
+  PrivateRouteTable2:
+    Description: "route table of private subnet2"
+    Value: !Ref PrivateRouteTable2
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-PrivateRouteTable2"
