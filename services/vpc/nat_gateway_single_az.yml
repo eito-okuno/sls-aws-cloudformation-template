@@ -1,0 +1,44 @@
+Resources:
+  # ---------------------
+  # NatGateway
+  # ---------------------
+  # PublicSubnet0に配置するNatGateway
+  NatGateway0:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      # パブリックNatGatewayのみ必要
+      AllocationId: !GetAtt NatGatewayEIP0.AllocationId
+      # NatGatewayを配置するPublicSubnet
+      SubnetId: !Ref PublicSubnet0
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway0
+
+  # ---------------------
+  # ElasticIP
+  # ---------------------
+  # NatGateway0のElasticIP
+  NatGatewayEIP0:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway-eip0
+
+  # ---------------------
+  # Route
+  # ---------------------
+  PrivateRoute:
+    Type: "AWS::EC2::Route"
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway0
+
+Outputs:
+  NatGatewayEIP0:
+    Description: "elastic ip address of nat gateway0"
+    Value: !Ref NatGatewayEIP0
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-NatGatewayEIP0"

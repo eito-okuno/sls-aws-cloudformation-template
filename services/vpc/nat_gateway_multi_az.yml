@@ -1,0 +1,112 @@
+Resources:
+  # ---------------------
+  # NatGateway
+  # ---------------------
+  # PublicSubnet0に配置するNatGateway
+  NatGateway0:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      # パブリックNatGatewayのみ必要
+      AllocationId: !GetAtt NatGatewayEIP0.AllocationId
+      # NatGatewayを配置するPublicSubnet
+      SubnetId: !Ref PublicSubnet0
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway0
+
+  # PublicSubnet1に配置するNatGateway
+  NatGateway1:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      # パブリックNatGatewayのみ必要
+      AllocationId: !GetAtt NatGatewayEIP1.AllocationId
+      # NatGatewayを配置するPublicSubnet
+      SubnetId: !Ref PublicSubnet1
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway1
+
+  # PublicSubnet2に配置するNatGateway
+  NatGateway2:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      # パブリックNatGatewayのみ必要
+      AllocationId: !GetAtt NatGatewayEIP2.AllocationId
+      # NatGatewayを配置するPublicSubnet
+      SubnetId: !Ref PublicSubnet2
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway2
+
+  # ---------------------
+  # ElasticIP
+  # ---------------------
+  # NatGateway0のElasticIP
+  NatGatewayEIP0:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway-eip0
+
+  # NatGateway1のElasticIP
+  NatGatewayEIP1:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway-eip1
+
+  # NatGateway2のElasticIP
+  NatGatewayEIP2:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-nat-gateway-eip2
+
+  # ---------------------
+  # Route
+  # ---------------------
+  PrivateRoute0:
+    Type: "AWS::EC2::Route"
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable0
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway0
+
+  PrivateRoute1:
+    Type: "AWS::EC2::Route"
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable1
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway1
+
+  PrivateRoute2:
+    Type: "AWS::EC2::Route"
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable2
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway2
+
+Outputs:
+  NatGatewayEIP0:
+    Description: "elastic ip address of nat gateway0"
+    Value: !Ref NatGatewayEIP0
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-NatGatewayEIP0"
+
+  NatGatewayEIP1:
+    Description: "elastic ip address of nat gateway1"
+    Value: !Ref NatGatewayEIP1
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-NatGatewayEIP1"
+
+  NatGatewayEIP2:
+    Description: "elastic ip address of nat gateway2"
+    Value: !Ref NatGatewayEIP2
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-NatGatewayEIP2"
