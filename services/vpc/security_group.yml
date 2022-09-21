@@ -1,0 +1,42 @@
+Resources:
+  # ---------------------
+  # SecurityGroup
+  # ---------------------
+  # LambdaのSecurityGroup
+  LambdaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: SecurityGroup for Lambda Functions
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-lambda-sg
+
+  # VPCエンドポイントのSecurityGroup
+  VPCEndpointSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: "Security Group for VPCEndpoint Interface Type"
+      # インバウンドルールの定義
+      SecurityGroupIngress:
+        - IpProtocol: "tcp"
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !Ref LambdaSecurityGroup
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-vpcendpoint-sg
+
+Outputs:
+  LambdaSecurityGroup:
+    Description: "SecurityGroup id of LambdaSecurityGroup"
+    Value: !Ref LambdaSecurityGroup
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-LambdaSecurityGroup"
+
+  VPCEndpointSecurityGroup:
+    Description: "SecurityGroup id of VPCEndpointSecurityGroup"
+    Value: !Ref VPCEndpointSecurityGroup
+    Export:
+      Name: !Sub "${AWS::Region}-${AWS::StackName}-VPCEndpointSecurityGroup"

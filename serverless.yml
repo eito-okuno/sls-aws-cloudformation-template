@@ -29,7 +29,13 @@ custom:
 
 # AWSリソース設定
 resources:
-    - ${file(./services/common/mapping_${self:provider.stage}.yml)}
+    - ${file(./services/common/config_${self:provider.stage}.yml)}
     - ${file(./services/vpc/vpc.yml)}
+    - ${file(./services/vpc/public_subnet.yml)}
     - ${file(./services/vpc/private_subnet.yml)}
-#     - ${file(./services/vpc/public_subnet.yml)}
+    - ${file(./services/vpc/public_route_table.yml)}
+    - ${file(./services/vpc/private_route_table_single_az.yml)}
+#     - ${file(./services/vpc/internet_gateway.yml)}
+#     - ${file(./services/vpc/nat_gateway_single_az.yml)}
+    - ${file(./services/vpc/security_group.yml)}
+    - ${file(./services/vpc/vpc_endpoint.yml)}
